@@ -1,7 +1,15 @@
-import "./App.css";
+import Header from "./components/Header";
+import Routing from "./components/Routing";
 
 function App() {
-  return <div></div>;
+  return (
+    <>
+      <Header />
+      <main className="main">
+        <Routing />
+      </main>
+    </>
+  );
 }
 
 export default App;
