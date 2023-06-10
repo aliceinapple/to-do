@@ -47,9 +47,13 @@ body {
   border-radius: 6px;
 }
 
-.todo-item_btns {
+.todo-item-btns {
   display: flex;
   gap: 5px;
+}
+
+.todo-item_complete {
+  text-decoration: line-through;
 }
 
 /* .ant-switch {

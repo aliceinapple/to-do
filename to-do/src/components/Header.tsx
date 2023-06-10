@@ -4,19 +4,30 @@ import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
+  const isSignedIn = localStorage.getItem("token");
 
-  const handleClick = () => {
+  const signOut = () => {
     localStorage.removeItem("token");
-    localStorage.getItem("token") ?? navigate("/");
+    navigate("/");
+  };
+
+  const redirectToAuthPage = () => {
+    navigate("/auth");
   };
 
   return (
     <header className="header">
       <Switch />
       <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
-        <Button type="primary" htmlType="submit" onClick={handleClick} danger>
-          Sign out
-        </Button>
+        {isSignedIn ? (
+          <Button type="primary" htmlType="submit" onClick={signOut} danger>
+            Sign out
+          </Button>
+        ) : (
+          <Button type="primary" htmlType="submit" onClick={redirectToAuthPage}>
+            Sign up / Sign in
+          </Button>
+        )}
         <Avatar size="large" icon={<UserOutlined />} />
       </div>
     </header>

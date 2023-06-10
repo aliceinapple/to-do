@@ -53,8 +53,8 @@ const AuthForm = () => {
   return (
     <>
       <Radio.Group defaultValue="sign up" onChange={switchForm}>
-        <Radio.Button value="sign in">Sign in</Radio.Button>
         <Radio.Button value="sign up">Sign up</Radio.Button>
+        <Radio.Button value="sign in">Sign in</Radio.Button>
       </Radio.Group>
       <Form onFinish={onSubmit}>
         {message}

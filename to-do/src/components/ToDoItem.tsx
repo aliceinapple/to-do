@@ -1,18 +1,84 @@
-import { CheckOutlined, CloseOutlined, EditOutlined } from "@ant-design/icons";
-import { Button } from "antd";
+import {
+  CheckOutlined,
+  CloseOutlined,
+  EditOutlined,
+  RollbackOutlined,
+} from "@ant-design/icons";
+import { Button, Input } from "antd";
+import { useDispatch } from "react-redux";
+import {
+  deleteTodo,
+  updateTodo,
+  updateTodoCompletion,
+} from "../redux/todoThunk";
+import { AppDispatch } from "../redux/store";
+import { useState } from "react";
 
-const ToDoItem = () => {
+interface TodoItemState {
+  todo: { id: number; title: string; isCompleted: boolean };
+}
+
+const TodoItem: React.FC<TodoItemState> = ({ todo }) => {
+  const dispatch: AppDispatch = useDispatch();
+  const [isCompleted, setIsCompleted] = useState(todo.isCompleted);
+  const [isEdited, setIsEdited] = useState(false);
+  const [value, setValue] = useState(todo.title);
+
+  const editHandle = () => {
+    setIsEdited(!isEdited);
+    isEdited && updateHandle();
+  };
+
+  const updateStatusHandle = () => {
+    dispatch(updateTodoCompletion(todo.id));
+    setIsCompleted(!isCompleted);
+  };
+
+  const deleteHandle = () => {
+    dispatch(deleteTodo(todo.id));
+  };
+
+  const updateHandle = () => {
+    dispatch(updateTodo({ title: value, id: todo.id }));
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+  };
+
   return (
-    <div className="todo-item">
-      <span>to do task</span>
-      <div className="todo-item_btns">
-        <Button type="primary" size="small" htmlType="submit">
-          <CheckOutlined />
+    <div className={`todo-item ${isCompleted && "todo-item_complete"}`}>
+      <Input
+        type="text"
+        placeholder="add task"
+        value={value}
+        disabled={!isEdited}
+        onChange={handleChange}
+      />
+      <div className="todo-item-btns">
+        <Button
+          type="primary"
+          size="small"
+          htmlType="submit"
+          onClick={updateStatusHandle}
+        >
+          {isCompleted ? <RollbackOutlined /> : <CheckOutlined />}
         </Button>
-        <Button type="dashed" size="small" htmlType="submit">
-          <EditOutlined />
+        <Button
+          type="dashed"
+          size="small"
+          htmlType="submit"
+          onClick={editHandle}
+        >
+          {isEdited ? <CheckOutlined /> : <EditOutlined />}
         </Button>
-        <Button type="primary" size="small" htmlType="submit" danger>
+        <Button
+          type="primary"
+          size="small"
+          htmlType="submit"
+          onClick={deleteHandle}
+          danger
+        >
           <CloseOutlined />
         </Button>
       </div>
@@ -20,4 +86,4 @@ const ToDoItem = () => {
   );
 };
 
-export default ToDoItem;
+export default TodoItem;

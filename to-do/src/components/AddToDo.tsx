@@ -1,17 +1,35 @@
 import { Button, Input } from "antd";
-import { useState } from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../redux/store";
+import { useEffect } from "react";
+import { createTodo, getTodos } from "../redux/todoThunk";
 
-const AddToDo = () => {
+const AddTodo = () => {
+  const dispatch: AppDispatch = useDispatch();
   const [value, setValue] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
 
-  const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (value.trim() === "") {
+      return;
+    }
+
+    dispatch(
+      createTodo({
+        title: value,
+      })
+    );
     setValue("");
   };
+
+  useEffect(() => {
+    dispatch(getTodos());
+  }, [dispatch]);
 
   return (
     <form className="add-task-input" onSubmit={handleSubmit}>
@@ -28,4 +46,4 @@ const AddToDo = () => {
   );
 };
 
-export default AddToDo;
+export default AddTodo;
