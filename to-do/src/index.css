@@ -56,6 +56,13 @@ body {
   text-decoration: line-through;
 }
 
+.highlighted-cell{
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: aqua;
+}
+
 /* .ant-switch {
   background-color: black;
 }

@@ -6,6 +6,12 @@ import TodoItem from "../components/TodoItem";
 
 const MainPage = () => {
   const todos = useSelector((state: RootState) => state.todos.value);
+  const selectedDate = useSelector((state: RootState) => state.date.date);
+
+  const filteredTodos = todos.filter((todo) => {
+    return todo.title.split("//")[1] === selectedDate;
+  });
+
   return (
     <div className="main-page">
       <div>
@@ -13,7 +19,7 @@ const MainPage = () => {
       </div>
       <div>
         <AddTodo />
-        {todos.map((todo) => (
+        {filteredTodos.map((todo) => (
           <TodoItem key={todo.id} todo={todo} />
         ))}
       </div>

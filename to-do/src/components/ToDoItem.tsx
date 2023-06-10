@@ -23,6 +23,7 @@ const TodoItem: React.FC<TodoItemState> = ({ todo }) => {
   const [isCompleted, setIsCompleted] = useState(todo.isCompleted);
   const [isEdited, setIsEdited] = useState(false);
   const [value, setValue] = useState(todo.title);
+  const date = value.split("//")[1];
 
   const editHandle = () => {
     setIsEdited(!isEdited);
@@ -39,7 +40,7 @@ const TodoItem: React.FC<TodoItemState> = ({ todo }) => {
   };
 
   const updateHandle = () => {
-    dispatch(updateTodo({ title: value, id: todo.id }));
+    dispatch(updateTodo({ title: `${value}//${date}`, id: todo.id }));
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,8 +51,7 @@ const TodoItem: React.FC<TodoItemState> = ({ todo }) => {
     <div className={`todo-item ${isCompleted && "todo-item_complete"}`}>
       <Input
         type="text"
-        placeholder="add task"
-        value={value}
+        value={value.split("//")[0]}
         disabled={!isEdited}
         onChange={handleChange}
       />

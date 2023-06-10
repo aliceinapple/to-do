@@ -1,12 +1,13 @@
 import { Button, Input } from "antd";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../redux/store";
 import { useEffect } from "react";
 import { createTodo, getTodos } from "../redux/todoThunk";
 
 const AddTodo = () => {
   const dispatch: AppDispatch = useDispatch();
+  const selectedDate = useSelector((state:RootState) => state.date.date);
   const [value, setValue] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,7 +22,7 @@ const AddTodo = () => {
 
     dispatch(
       createTodo({
-        title: value,
+        title: `${value}//${selectedDate}`,
       })
     );
     setValue("");

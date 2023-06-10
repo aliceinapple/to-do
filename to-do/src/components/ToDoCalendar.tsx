@@ -1,12 +1,32 @@
 import { Calendar } from "antd";
-import { CalendarMode } from "antd/es/calendar/generateCalendar";
 import { Dayjs } from "dayjs";
+import { useDispatch, useSelector } from "react-redux";
+import { setDate } from "../redux/dateSlice";
+import { RootState } from "../redux/store";
 
 const TodoCalendar = () => {
-  const onPanelChange = (value: Dayjs, mode: CalendarMode) => {
-    console.log(value.format("YYYY-MM-DD"), mode);
+  const dispatch = useDispatch();
+  const todos = useSelector((state: RootState) => state.todos.value);
+  const datesArr = [...new Set(todos.map((item) => item.title.split("//")[1]))];
+
+  const onSelect = (value: Dayjs) => {
+    dispatch(setDate(value.format("YYYY-MM-DD")));
   };
-  return <Calendar fullscreen={false} onPanelChange={onPanelChange} />;
+
+  function dateCellRender(date: Dayjs) {
+    if (datesArr.some((item) => date.isSame(item, "day"))) {
+      return <div className="highlighted-cell"></div>;
+    }
+    return null;
+  }
+
+  return (
+    <Calendar
+      fullscreen={false}
+      onSelect={onSelect}
+      cellRender={dateCellRender}
+    />
+  );
 };
 
 export default TodoCalendar;
