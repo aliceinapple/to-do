@@ -7,7 +7,7 @@ import { RootState } from "../redux/store";
 const TodoCalendar = () => {
   const dispatch = useDispatch();
   const todos = useSelector((state: RootState) => state.todos.value);
-  const datesArr = [...new Set(todos.map((item) => item.title.split("//")[1]))];
+  const datesArr = [...new Set(todos.map((item) => item.title.split("~")[1]))];
 
   const onSelect = (value: Dayjs) => {
     dispatch(setDate(value.format("YYYY-MM-DD")));
@@ -21,11 +21,13 @@ const TodoCalendar = () => {
   }
 
   return (
-    <Calendar
-      fullscreen={false}
-      onSelect={onSelect}
-      cellRender={dateCellRender}
-    />
+    <div className="calendar">
+      <Calendar
+        fullscreen={false}
+        onSelect={onSelect}
+        cellRender={dateCellRender}
+      />
+    </div>
   );
 };
 

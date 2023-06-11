@@ -1,4 +1,18 @@
 :root {
+  --c-purple: #8F90F5;
+  --c-blue-transparent: #1677ff76;
+  --c-pink: #f295ce;
+  --c-orange: #F1B21B;
+  --c-white: white;
+  --c-black: black;
+  --c-grey: #d9d9d9;
+  --c-green: #d1f57771;
+  --c-white-transparent: rgba(255, 255, 255, 0.40);
+  --b-radius: 6px;
+  --border: 1px solid var(--c-white);
+}
+
+:root {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
     'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
     'Noto Color Emoji';
@@ -7,22 +21,48 @@
   font-synthesis: none;
 }
 
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--c-blue-transparent);
+  border-radius: var(--b-radius);
+}
+
+textarea[readonly],
+textarea[readonly]:hover,
+textarea[readonly]:focus {
+  outline: none;
+  border-color: transparent;
+  box-shadow: none;
+}
+
 body {
   margin: 0;
-  /* display: flex; */
   min-width: 320px;
   min-height: 100vh;
+  background-image: url(https://images.unsplash.com/photo-1626370023463-c9dd32469afb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1964&q=80);
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .header {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 15px;
+  background-color: var(--c-white-transparent);
+  backdrop-filter: blur(14px);
 }
 
 .main {
-  padding: 30px;
+  margin: 30px;
+  display: flex;
+  justify-content: center;
 }
 
 .main-page {
@@ -31,9 +71,21 @@ body {
   gap: 30px;
 }
 
+.calendar {
+  background-color: var(--c-white-transparent);
+  backdrop-filter: blur(14px);
+  padding: 30px;
+  border-radius: var(--b-radius);
+  border: var(--border);
+}
+
 .add-task-input {
   display: flex;
   gap: 10px;
+  background-color: var(--c-white);
+  padding: 20px;
+  border: var(--border);
+  border-radius: var(--b-radius);
 }
 
 .todo-item {
@@ -43,8 +95,10 @@ body {
   gap: 20px;
   margin: 10px 0;
   padding: 10px;
-  border: 1px solid black;
-  border-radius: 6px;
+
+  border-radius: var(--b-radius);
+  background-color: var(--c-white-transparent);
+  backdrop-filter: blur(14px);
 }
 
 .todo-item-btns {
@@ -52,21 +106,47 @@ body {
   gap: 5px;
 }
 
-.todo-item_complete {
+.todo-item_completed {
   text-decoration: line-through;
+
 }
 
-.highlighted-cell{
-  width: 10px;
-  height: 10px;
+.todo-item_completed textarea {
+  background-color: var(--c-white-transparent);
+}
+
+.highlighted-cell {
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background-color: aqua;
+  margin: 2px calc(50% - 3.5px);
+  background-color: var(--c-pink);
 }
 
-/* .ant-switch {
-  background-color: black;
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: var(--c-white-transparent);
+  padding: 30px;
+  backdrop-filter: blur(14px);
+  border-radius: var(--b-radius);
+  border: var(--border);
 }
 
-:where(.css-dev-only-do-not-override-12jzuas).ant-switch.ant-switch-checked {
-  background-color: green;
-} */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  width: 300px;
+}
+
+.ant-form-item.css-dev-only-do-not-override-12jzuas {
+  margin: 0;
+}
+
+.ant-radio-button-wrapper.ant-radio-button-wrapper-checked.sign-switch.css-dev-only-do-not-override-12jzuas,
+.ant-radio-button-wrapper.sign-switch.css-dev-only-do-not-override-12jzuas {
+  background: none;
+  border: none;
+}

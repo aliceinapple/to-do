@@ -1,6 +1,6 @@
 import { Form, Input, Button, Radio, RadioChangeEvent } from "antd";
 import { useState } from "react";
-import { authUser } from "../api/auth";
+import { authUser, getUser } from "../api/auth";
 import { AuthState, registerUser } from "../api/register";
 import { useDispatch } from "react-redux";
 import { setUserData } from "../redux/userDataSlice";
@@ -25,7 +25,12 @@ const AuthForm = () => {
         password: values.password,
       });
       localStorage.setItem("token", data);
-      localStorage.getItem("token") && navigate("/main");
+      values.email && localStorage.setItem("email", values.email);
+
+      const userInfo = await getUser();
+      userInfo && dispatch(setUserData(userInfo));
+
+      navigate("/main");
     } else {
       const data = await registerUser({
         email: values.email,
@@ -41,7 +46,6 @@ const AuthForm = () => {
       setMessage(data.message);
       if (!err && !data.message) {
         setIsRegister(true);
-        dispatch(setUserData(data));
       }
     }
   };
@@ -53,10 +57,14 @@ const AuthForm = () => {
   return (
     <>
       <Radio.Group defaultValue="sign up" onChange={switchForm}>
-        <Radio.Button value="sign up">Sign up</Radio.Button>
-        <Radio.Button value="sign in">Sign in</Radio.Button>
+        <Radio.Button className="sign-switch" value="sign up">
+          Sign up
+        </Radio.Button>
+        <Radio.Button className="sign-switch" value="sign in">
+          Sign in
+        </Radio.Button>
       </Radio.Group>
-      <Form onFinish={onSubmit}>
+      <Form className="auth-form" onFinish={onSubmit}>
         {message}
         <Form.Item
           label="Email"
@@ -110,15 +118,14 @@ const AuthForm = () => {
         )}
 
         <Form.Item>
-          {!isRegister ? (
-            <Button type="primary" htmlType="submit">
-              Sign up
-            </Button>
-          ) : (
-            <Button type="primary" htmlType="submit">
-              Sign in
-            </Button>
-          )}
+          <Button
+            style={{ width: "100%" }}
+            type="primary"
+            size="large"
+            htmlType="submit"
+          >
+            {!isRegister ? "Sign up" : "Sign in"}
+          </Button>
         </Form.Item>
       </Form>
     </>

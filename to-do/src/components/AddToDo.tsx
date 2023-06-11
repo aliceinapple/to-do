@@ -2,16 +2,15 @@ import { Button, Input } from "antd";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
-import { useEffect } from "react";
-import { createTodo, getTodos } from "../redux/todoThunk";
+import { createTodo } from "../redux/todoThunk";
 
 const AddTodo = () => {
   const dispatch: AppDispatch = useDispatch();
-  const selectedDate = useSelector((state:RootState) => state.date.date);
+  const selectedDate = useSelector((state: RootState) => state.date.date);
   const [value, setValue] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
+    e.target.value !== "~" && setValue(e.target.value);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -22,15 +21,11 @@ const AddTodo = () => {
 
     dispatch(
       createTodo({
-        title: `${value}//${selectedDate}`,
+        title: `${value}~${selectedDate}`,
       })
     );
     setValue("");
   };
-
-  useEffect(() => {
-    dispatch(getTodos());
-  }, [dispatch]);
 
   return (
     <form className="add-task-input" onSubmit={handleSubmit}>

@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-interface userDataState {
+export interface userDataState {
   age: number;
   gender: string;
   id: number;

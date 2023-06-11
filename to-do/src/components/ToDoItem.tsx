@@ -4,7 +4,7 @@ import {
   EditOutlined,
   RollbackOutlined,
 } from "@ant-design/icons";
-import { Button, Input } from "antd";
+import { Button } from "antd";
 import { useDispatch } from "react-redux";
 import {
   deleteTodo,
@@ -13,17 +13,25 @@ import {
 } from "../redux/todoThunk";
 import { AppDispatch } from "../redux/store";
 import { useState } from "react";
+import TextArea from "antd/es/input/TextArea";
 
 interface TodoItemState {
-  todo: { id: number; title: string; isCompleted: boolean };
+  id: number;
+  isCompleted: boolean;
+  date: string;
+  title: string;
 }
 
-const TodoItem: React.FC<TodoItemState> = ({ todo }) => {
+const TodoItem: React.FC<TodoItemState> = ({
+  id,
+  isCompleted,
+  date,
+  title,
+}) => {
   const dispatch: AppDispatch = useDispatch();
-  const [isCompleted, setIsCompleted] = useState(todo.isCompleted);
+  const [isCompletedTodo, setIsCompletedTodo] = useState(isCompleted);
   const [isEdited, setIsEdited] = useState(false);
-  const [value, setValue] = useState(todo.title);
-  const date = value.split("//")[1];
+  const [value, setValue] = useState(title);
 
   const editHandle = () => {
     setIsEdited(!isEdited);
@@ -31,48 +39,49 @@ const TodoItem: React.FC<TodoItemState> = ({ todo }) => {
   };
 
   const updateStatusHandle = () => {
-    dispatch(updateTodoCompletion(todo.id));
-    setIsCompleted(!isCompleted);
+    dispatch(updateTodoCompletion(id));
+    setIsCompletedTodo(!isCompletedTodo);
   };
 
   const deleteHandle = () => {
-    dispatch(deleteTodo(todo.id));
+    dispatch(deleteTodo(id));
   };
 
   const updateHandle = () => {
-    dispatch(updateTodo({ title: `${value}//${date}`, id: todo.id }));
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
+    dispatch(updateTodo({ title: `${value}~${date}`, id: id }));
   };
 
   return (
-    <div className={`todo-item ${isCompleted && "todo-item_complete"}`}>
-      <Input
-        type="text"
-        value={value.split("//")[0]}
-        disabled={!isEdited}
-        onChange={handleChange}
+    <div className={`todo-item ${isCompletedTodo && "todo-item_completed"}`}>
+      <TextArea
+        value={value}
+        onChange={(e) => setValue(e.target.value.replace(/~/g, ""))}
+        autoSize={{ maxRows: 3 }}
+        readOnly={!isEdited}
       />
       <div className="todo-item-btns">
+        {!isCompletedTodo && (
+          <Button
+            type={isEdited ? "dashed" : "primary"}
+            size="small"
+            htmlType="submit"
+            onClick={editHandle}
+          >
+            <EditOutlined />
+          </Button>
+        )}
+
         <Button
-          type="primary"
+          type="default"
           size="small"
           htmlType="submit"
           onClick={updateStatusHandle}
+          ghost
         >
-          {isCompleted ? <RollbackOutlined /> : <CheckOutlined />}
+          {isCompletedTodo ? <RollbackOutlined /> : <CheckOutlined />}
         </Button>
         <Button
-          type="dashed"
-          size="small"
-          htmlType="submit"
-          onClick={editHandle}
-        >
-          {isEdited ? <CheckOutlined /> : <EditOutlined />}
-        </Button>
-        <Button
+          className="custom-button"
           type="primary"
           size="small"
           htmlType="submit"
