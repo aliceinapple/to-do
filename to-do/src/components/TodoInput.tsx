@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
 import { createTodo } from "../redux/todoThunk";
 
-const AddTodo = () => {
+const TodoInput = () => {
   const dispatch: AppDispatch = useDispatch();
   const selectedDate = useSelector((state: RootState) => state.date.date);
   const [value, setValue] = useState("");
@@ -35,11 +35,11 @@ const AddTodo = () => {
         value={value}
         onChange={handleChange}
       />
-      <Button type="primary" htmlType="submit">
+      <Button className="add-btn" type="primary" htmlType="submit">
         Add
       </Button>
     </form>
   );
 };
 
-export default AddTodo;
+export default TodoInput;

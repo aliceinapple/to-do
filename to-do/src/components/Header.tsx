@@ -4,10 +4,15 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../redux/store";
 
-const Header = () => {
+interface HeaderState {
+  switchTheme: (checked: boolean) => void;
+}
+
+const Header: React.FC<HeaderState> = ({ switchTheme }) => {
   const navigate = useNavigate();
   const isSignedIn = localStorage.getItem("token");
   const userData = useSelector((state: RootState) => state.userData);
+  const isAuthPage = window.location.pathname === "/auth";
 
   const signOut = () => {
     localStorage.removeItem("token");
@@ -17,6 +22,10 @@ const Header = () => {
 
   const redirectToAuthPage = () => {
     navigate("/auth");
+  };
+
+  const goToWelcomePage = () => {
+    navigate("/welcome");
   };
 
   const items: MenuProps["items"] = [
@@ -54,19 +63,33 @@ const Header = () => {
     },
   ];
 
+  const onChange = (checked: boolean) => {
+    switchTheme(checked);
+  };
+
   return (
     <header className="header">
-      <Switch />
+      <Switch onChange={onChange} />
       <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
-        {isSignedIn ? (
-          <Button type="default" htmlType="submit" onClick={signOut} ghost>
-            Sign out
-          </Button>
-        ) : (
-          <Button type="dashed" htmlType="submit" onClick={redirectToAuthPage}>
-            Sign up | Sign in
-          </Button>
-        )}
+        <Button
+          type="default"
+          htmlType="submit"
+          onClick={
+            isAuthPage
+              ? goToWelcomePage
+              : isSignedIn
+              ? signOut
+              : redirectToAuthPage
+          }
+          ghost
+        >
+          {isAuthPage
+            ? "Welcome page"
+            : isSignedIn
+            ? "Sign out"
+            : "Sign up | Sign in"}
+        </Button>
+
         <Avatar
           size="large"
           icon={

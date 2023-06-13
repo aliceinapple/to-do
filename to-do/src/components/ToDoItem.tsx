@@ -29,9 +29,9 @@ const TodoItem: React.FC<TodoItemState> = ({
   title,
 }) => {
   const dispatch: AppDispatch = useDispatch();
-  const [isCompletedTodo, setIsCompletedTodo] = useState(isCompleted);
   const [isEdited, setIsEdited] = useState(false);
   const [value, setValue] = useState(title);
+  const [isCompletedTodo, setIsCompletedTodo] = useState(isCompleted);
 
   const editHandle = () => {
     setIsEdited(!isEdited);
@@ -39,8 +39,8 @@ const TodoItem: React.FC<TodoItemState> = ({
   };
 
   const updateStatusHandle = () => {
-    dispatch(updateTodoCompletion(id));
     setIsCompletedTodo(!isCompletedTodo);
+    dispatch(updateTodoCompletion(id));
   };
 
   const deleteHandle = () => {

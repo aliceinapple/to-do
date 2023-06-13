@@ -1,0 +1,60 @@
+.ant-form-item.css-dev-only-do-not-override-12jzuas {
+  margin: 0;
+}
+
+.ant-radio-button-wrapper.ant-radio-button-wrapper-checked.sign-switch.css-dev-only-do-not-override-12jzuas,
+.ant-radio-button-wrapper.sign-switch.css-dev-only-do-not-override-12jzuas {
+  background: none;
+  border: none;
+}
+
+.ant-picker-content th {
+  color: var(--c-blue) !important;
+}
+
+.ant-picker-cell {
+  color: var(--c-gray) !important;
+}
+
+.ant-input.css-dev-only-do-not-override-12jzuas,
+.ant-picker-panel,
+.ant-picker-cell.ant-picker-cell-in-view,
+.ant-picker-calendar.ant-picker-calendar-mini.css-dev-only-do-not-override-12jzuas {
+  background: var(--c-white) !important;
+  color: var(--c-black) !important;
+}
+
+.ant-input.css-dev-only-do-not-override-12jzuas::placeholder {
+  color: var(--c-gray);
+}
+
+.ant-input-affix-wrapper.ant-input-password.ant-input-affix-wrapper-status-error.css-dev-only-do-not-override-12jzuas,
+.ant-input-affix-wrapper.ant-input-password.css-dev-only-do-not-override-12jzuas {
+  background-color: var(--c-white);
+}
+
+.ant-col.ant-form-item-label.css-dev-only-do-not-override-12jzuas label,
+.ant-radio-wrapper.ant-radio-wrapper-checked.ant-radio-wrapper-in-form-item.css-dev-only-do-not-override-12jzuas,
+.ant-radio-wrapper.ant-radio-wrapper-in-form-item.css-dev-only-do-not-override-12jzuas {
+  color: var(--c-black) !important;
+}
+
+.ant-radio-button-wrapper.sign-switch.css-dev-only-do-not-override-12jzuas {
+  color: var(--c-black) !important;
+}
+
+.ant-radio-button-wrapper.ant-radio-button-wrapper-checked.sign-switch.css-dev-only-do-not-override-12jzuas {
+  color: var(--c-blue) !important;
+}
+
+.anticon.anticon-eye-invisible.ant-input-password-icon {
+  color: var(--c-blue);
+}
+
+.css-dev-only-do-not-override-12jzuas.ant-form-item .ant-form-item-label>label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before,
+.css-dev-only-do-not-override-12jzuas.ant-input-status-error:not(.ant-input-disabled):not(.ant-input-borderless).ant-input,
+.ant-input-affix-wrapper.ant-input-password.ant-input-affix-wrapper-status-error.css-dev-only-do-not-override-12jzuas,
+.ant-form-item-explain-error {
+  color: var(--c-pink) !important;
+  border-color: var(--c-pink);
+}

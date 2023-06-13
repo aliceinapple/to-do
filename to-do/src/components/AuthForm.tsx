@@ -100,8 +100,8 @@ const AuthForm = () => {
 
             <Form.Item label="Gender" name="gender">
               <Radio.Group defaultValue="female">
-                <Radio.Button value="female">Female</Radio.Button>
-                <Radio.Button value="male">Male</Radio.Button>
+                <Radio value="female">Female</Radio>
+                <Radio value="male">Male</Radio>
               </Radio.Group>
             </Form.Item>
 

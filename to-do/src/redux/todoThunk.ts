@@ -25,6 +25,7 @@ const fetchApi = async (
   }
 
   const data = await response.json();
+
   return data;
 };
 
@@ -56,8 +57,7 @@ export const updateTodoCompletion = createAsyncThunk(
   "todos/updateTodoCompletion",
   async (id: number, { rejectWithValue }) => {
     try {
-      const updatedTodo = await fetchApi(`/${id}/isCompleted`, "PATCH");
-      return updatedTodo;
+      fetchApi(`/${id}/isCompleted`, "PATCH");
     } catch (error) {
       return rejectWithValue({ message: (error as Error).message });
     }

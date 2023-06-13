@@ -27,12 +27,11 @@ const todosSlice = createSlice({
       state.value = action.payload;
     });
     builder.addCase(updateTodoCompletion.fulfilled, (state, action) => {
-      const updatedTodo = action.payload;
-      const todoIndex = state.value.findIndex(
-        (todo) => todo.id === updatedTodo.id
-      );
+      const todoId = action.meta.arg;
+      const todoIndex = state.value.findIndex((todo) => todo.id === todoId);
       if (todoIndex !== -1) {
-        state.value[todoIndex].isCompleted = updatedTodo.isCompleted;
+        state.value[todoIndex].isCompleted =
+          !state.value[todoIndex].isCompleted;
       }
     });
     builder.addCase(deleteTodo.fulfilled, (state, action) => {
