@@ -183,10 +183,16 @@ textarea[readonly]:focus {
 }
 
 .welcome-page {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 20px;
-  align-items: center;
+  text-align: center;
+  color: var(--c-black);
+  max-width: 500px;
+}
+
+.welcome-page p{
+  font-size: 18px;
 }
 
 @media screen and (max-width: 780px) {
