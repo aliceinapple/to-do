@@ -10,6 +10,12 @@ body {
   --c-blue: #4096FF;
   --c-purple: #8F90F5;
   --c-green: #D1F577;
+  --c-purple-transparent: #8f91f59a;
+  --c-black: black;
+  --c-white-transparent: rgba(255, 255, 255, 0.40);
+  --c-white: white;
+  --c-pink: #ff0080;
+  --border: 1px solid var(--c-white);
 }
 
 :root {
@@ -22,24 +28,7 @@ body {
 }
 
 .app {
-  --c-black: black;
-  --c-white-transparent: rgba(255, 255, 255, 0.40);
-  --c-white: white;
-  --c-pink: #ff0080;
-  --border: 1px solid var(--c-white);
   background-image: url('./assets/background.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  min-height: 100vh;
-}
-
-.app-dark {
-  --c-black: white;
-  --c-white-transparent: rgba(0, 0, 0, 0.268);
-  --c-white: rgb(0, 0, 0);
-  --c-pink: #ff009d;
-  --border: 1px solid var(--c-white);
-  background-image: url('./assets/background-dark.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 100vh;
@@ -66,12 +55,19 @@ textarea[readonly]:focus {
 
 .header {
   position: relative;
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto auto;
   align-items: center;
   justify-content: space-between;
   padding: 15px;
   background-color: var(--c-white-transparent);
   backdrop-filter: blur(14px);
+}
+
+.greetings {
+  color: var(--c-white);
+  font-weight: 500;
+  text-align: center;
 }
 
 .main {
@@ -148,8 +144,19 @@ textarea[readonly]:focus {
   text-decoration: line-through;
 }
 
-.todo-item_completed textarea {
-  background-color: var(--c-white-transparent);
+.todo-item_completed::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--c-purple-transparent);
+  border-radius: var(--b-radius);
+}
+
+.todo-item_completed button {
+  z-index: 2;
 }
 
 .highlighted-cell {
@@ -191,7 +198,7 @@ textarea[readonly]:focus {
   max-width: 500px;
 }
 
-.welcome-page p{
+.welcome-page p {
   font-size: 18px;
 }
 
@@ -202,6 +209,15 @@ textarea[readonly]:focus {
 }
 
 @media screen and (max-width: 420px) {
+  /* .header {
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+  }
+
+  .greetings {
+    grid-area: 2/1/2/span 2;
+  } */
+
   .calendar {
     padding: 10px;
   }

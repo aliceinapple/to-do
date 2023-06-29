@@ -1,14 +1,10 @@
 import { UserOutlined } from "@ant-design/icons";
-import { Avatar, Button, Dropdown, MenuProps, Switch } from "antd";
+import { Avatar, Button, Dropdown, MenuProps } from "antd";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../redux/store";
 
-interface HeaderState {
-  switchTheme: (checked: boolean) => void;
-}
-
-const Header: React.FC<HeaderState> = ({ switchTheme }) => {
+const Header = () => {
   const navigate = useNavigate();
   const isSignedIn = localStorage.getItem("token");
   const userData = useSelector((state: RootState) => state.userData);
@@ -63,48 +59,41 @@ const Header: React.FC<HeaderState> = ({ switchTheme }) => {
     },
   ];
 
-  const onChange = (checked: boolean) => {
-    switchTheme(checked);
-  };
-
   return (
     <header className="header">
-      <Switch onChange={onChange} />
-      <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
-        <Button
-          type="default"
-          htmlType="submit"
-          onClick={
-            isAuthPage
-              ? goToWelcomePage
-              : isSignedIn
-              ? signOut
-              : redirectToAuthPage
-          }
-          ghost
-        >
-          {isAuthPage
-            ? "Welcome page"
+      <Button
+        type="default"
+        htmlType="submit"
+        onClick={
+          isAuthPage
+            ? goToWelcomePage
             : isSignedIn
-            ? "Sign out"
-            : "Sign up | Sign in"}
-        </Button>
-
-        <Avatar
-          size="large"
-          icon={
-            isSignedIn ? (
-              <Dropdown menu={{ items }} placement="bottomRight">
-                <span style={{ cursor: "pointer" }}>
-                  {userData.username[0]?.toUpperCase()}
-                </span>
-              </Dropdown>
-            ) : (
-              <UserOutlined />
-            )
-          }
-        />
-      </div>
+            ? signOut
+            : redirectToAuthPage
+        }
+        ghost
+      >
+        {isAuthPage
+          ? "Welcome page"
+          : isSignedIn
+          ? "Sign out"
+          : "Sign up | Sign in"}
+      </Button>
+      <span className="greetings">Welcome, {userData.username}!gvjhgvhkbjhbh bhgvhgvg</span>
+      <Avatar
+        size="large"
+        icon={
+          isSignedIn ? (
+            <Dropdown menu={{ items }} placement="bottomRight">
+              <span style={{ cursor: "pointer" }}>
+                {userData.username[0]?.toUpperCase()}
+              </span>
+            </Dropdown>
+          ) : (
+            <UserOutlined />
+          )
+        }
+      />
     </header>
   );
 };

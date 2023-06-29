@@ -1,7 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const token = localStorage.getItem("token");
 const apiUrl = "https://todo-redev.herokuapp.com/api/todos";
+
+const getToken = async () => {
+  return localStorage.getItem("token");
+};
 
 const fetchApi = async (
   url = "",
@@ -9,6 +12,7 @@ const fetchApi = async (
   body: null | object = null
 ) => {
   const bodyObject = body && JSON.stringify(body);
+  const token = await getToken();
 
   const response = await fetch(`${apiUrl}${url}`, {
     method: method,
