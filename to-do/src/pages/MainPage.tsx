@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
 import { useEffect } from "react";
-import TodoCalendar from "../components/TodoCalendar";
-import TodoItem from "../components/TodoItem";
 import TodoInput from "../components/TodoInput";
 import { getTodos } from "../redux/todoThunk";
+import TodoCalendar from "../components/TodoCalendar";
+import TodoItem from "../components/TodoItem";
 
 const MainPage = () => {
   const dispatch: AppDispatch = useDispatch();
